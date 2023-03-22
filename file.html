@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- <title>E-commerce Website</title> -->
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .product img {
+            max-width: 200px;
+            margin-right: 20px;
+        }
+        .product h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .product p {
+            margin-bottom: 10px;
+        }
+        .product button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+        .cart {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .cart h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .cart p {
+            margin-bottom: 10px;
+        }
+        .cart button {
+            background-color: #F44336;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>E-commerce Website</h1>
+    <div class="product">
+        <img src="img/img1.jpeg">
+        <div>
+            <h2>Product 1</h2>
+            <p>Description of product 1.</p>
+            <p>$50</p>
+            <button class="add-to-cart" data-id="1">Add to cart</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="img/img2.jpeg">
+        <div>
+            <h2>Product 2</h2>
+            <p>Description of product 2.</p>
+            <p>$75</p>
+            <button class="add-to-cart" data-id="2">Add to cart</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="img/img3.jpeg">
+        <div>
+            <h2>Product 3</h2>
+            <p>Description of product 3.</p>
+            <p>$100</p>
+            <button class="add-to-cart" data-id="3">Add to cart</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="img/img3.jpeg">
+        <div>
+            <h2>Product 3</h2>
+            <p>Description of product 3.</p>
+            <p>$100</p>
+            <button class="add-to-cart" data-id="3">Add to cart</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="img/img4.jpeg">
+        <div>
+            <h2>Product 3</h2>
+            <p>Description of product 3.</p>
+            <p>$100</p>
+            <button class="add-to-cart" data-id="3">Add to cart</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="img/img5.jpeg">
+        <div>
+            <h2>Product 3</h2>
+            <p>Description of product 3.</p>
+            <p>$100</p>
+            <button class="add-to-cart" data-id="3">Add to cart</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="img/img6.jpeg">
+        <div>
+            <h2>Product 3</h2>
+            <p>Description of product 3.</p>
+            <p>$100</p>
+            <button class="add-to-cart" data-id="3">Add to cart</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="img/img7.jpeg">
+        <div>
+            <h2>Product 3</h2>
+            <p>Description of product 3.</p>
+            <p>$100</p>
+            <button class="add-to-cart" data-id="3">Add to cart</button>
+        </div>
+    </div>
+    <div class="cart">
+        <h2>Shopping Cart</h2>
+        <p>Total: $0</p>
+        <button class="checkout">Checkout</button>
+    </div>
+    <script>
+        const products = [
+  {id: 1, name: 'Product 1', description: 'Description of product 1.', price: 50, image: 'product1.jpg'},
+  {id: 2, name: 'Product 2', description: 'Description of product 2.', price: 75, image: 'product2.jpg'},
+  {id: 3, name: 'Product 3', description: 'Description of product 3.', price: 100, image: 'product3.jpg'}
+];
+const cart = [];
+const cartElement = document.querySelector('.cart');
+const totalElement = cartElement.querySelector('p');
+const checkoutButton = cartElement.querySelector('.checkout');
+const productsElement = document.querySelectorAll('.product');
+productsElement.forEach(productElement => {
+  const addToCartButton = productElement.querySelector('.add-to-cart');
+  const productId = addToCartButton.getAttribute('data-id');
+  const product = products.find(product => product.id == productId);
+  addToCartButton.addEventListener('click', () => {
+    cart.push(product);
+    updateCart();
+  });
+});
+function updateCart() {
+  cartElement.innerHTML = '';
+  let total = 0;
+  cart.forEach(product => {
+    const productElement = document.createElement('div');
+    productElement.classList.add('product');
+    const imageElement = document.createElement('img');
+    imageElement.src = product.image;
+    productElement.appendChild(imageElement);
+    const infoElement = document.createElement('div');
+    productElement.appendChild(infoElement);
+    const nameElement = document.createElement('h2');
+    nameElement.innerText = product.name;
+    infoElement.appendChild(nameElement);
+    const descriptionElement = document.createElement('p');
+    descriptionElement.innerText = product.description;
+    infoElement.appendChild(descriptionElement);
+    const priceElement = document.createElement('p');
+    priceElement.innerText = `$${product.price}`;
+    infoElement.appendChild(priceElement);
+    const removeButton = document.createElement('button');
+    removeButton.classList.add('remove-from-cart');
+    removeButton.setAttribute('data-id', product.id);
+    removeButton.innerText = 'Remove';
+    infoElement.appendChild(removeButton);
+    total += product.price;
+    removeButton.addEventListener('click', () => {
+      const index = cart.findIndex(item => item.id === product.id);
+      cart.splice(index, 1);
+      updateCart();
+    });
+    cartElement.appendChild(productElement);
+  });
+  totalElement.innerText = `Total: $${total}`;
+}
+checkoutButton.addEventListener('click', () => {
+  if (cart.length === 0) {
+    alert('Your cart is empty.');
+  } else {
+    const totalPrice = cart.reduce((total, product) => total + product.price, 0);
+    const confirmation = confirm(`Your total is $${totalPrice}. Proceed to checkout?`);
+    if (confirmation) {
+      alert('Checkout successful!');
+      cart.length = 0;
+      updateCart();
+    }
+  }
+});
+</script>
+</body>
+</html>
